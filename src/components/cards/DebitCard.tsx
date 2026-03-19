@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Card } from '@/types';
-import visaLogo from '@assets/Images/Visa Logo.svg';
-import aspireLogo from '@assets/Images/Logo.svg';
-import eyeIcon from '@assets/Images/remove_red_eye-24px.svg';
+import visaLogo from '@assets/Images/Visa Logo.svg?url';
+import aspireLogo from '@assets/Images/Aspire-Logo-1.svg?url';
+import eyeIcon from '@assets/Images/remove_red_eye-24px.svg?url';
 
 interface DebitCardProps {
   card: Card;
@@ -24,42 +24,49 @@ function DebitCard({ card }: DebitCardProps) {
 
   return (
     <div className="relative">
-      {/* Show Card Number Button */}
+      {/* Show Card Number Button - Positioned above the card */}
       <button
         onClick={() => setShowCardNumber(!showCardNumber)}
-        className="absolute -top-12 right-0 flex items-center gap-2 text-primary text-sm font-medium hover:text-primary-600 transition-colors z-10"
+        className="absolute -top-8 right-0 flex items-center gap-2 text-primary text-sm font-medium hover:text-primary-600 transition-colors z-10"
       >
         <img src={eyeIcon} alt="Show" className="w-5 h-5" />
         <span>{showCardNumber ? 'Hide' : 'Show'} card number</span>
       </button>
 
       {/* Card */}
-      <div className="bg-primary rounded-[20px] p-6 md:p-8 text-white shadow-lg aspect-[1.586/1] flex flex-col justify-between">
-        {/* Card Header */}
+      <div className="bg-primary rounded-[20px] p-6 md:p-8 text-white shadow-lg aspect-[1.586/1] flex flex-col justify-between relative">
+
+        {/* Aspire Logo - Top Right */}
         <div className="flex justify-end">
-          <img src={aspireLogo} alt="Aspire" className="h-6 md:h-7" />
+          <img src={aspireLogo} alt="Aspire" className="h-6 md:h-8" />
         </div>
 
-        {/* Card Holder Name */}
-        <div>
-          <p className="text-xl md:text-2xl font-bold mb-8 md:mb-10">
+        {/* Card Content - Middle Section */}
+        <div className="flex-1 flex flex-col justify-center">
+
+          {/* Card Holder Name */}
+          <p className="text-2xl md:text-[32px] font-bold mb-6 md:mb-8 tracking-wide">
             {card.cardHolderName}
           </p>
 
           {/* Card Number */}
-          <div className="text-sm md:text-base tracking-[0.15em] mb-4 font-medium">
+          <div className="text-2xl md:text-[28px] tracking-[0.2em] font-bold mb-4">
             {formatCardNumber(card.cardNumber)}
           </div>
 
-          {/* Card Details */}
-          <div className="flex items-center justify-between">
-            <div className="flex gap-8 text-xs md:text-sm">
-              <span>Thru: {card.expiryDate}</span>
-              <span>CVV: {showCardNumber ? card.cvv : '***'}</span>
-            </div>
-            <img src={visaLogo} alt="VISA" className="h-6 md:h-8" />
+          {/* 👉 Moved here (Expiry + CVV) */}
+          <div className="flex gap-6 md:gap-8 text-lg md:text-lg font-bold mt-4">
+            <span>Thru: {card.expiryDate}</span>
+            <span>CVV: {showCardNumber ? card.cvv : '***'}</span>
           </div>
+
         </div>
+
+        {/* Bottom Section - Only VISA logo now */}
+        <div className="flex justify-end">
+          <img src={visaLogo} alt="VISA" className="h-7 md:h-9" />
+        </div>
+
       </div>
     </div>
   );

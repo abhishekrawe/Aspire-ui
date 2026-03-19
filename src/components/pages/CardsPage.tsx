@@ -68,9 +68,9 @@ function CardsPage() {
       </div>
 
       {/* Balance Section */}
-      <div className="flex flex-col md:flex-row md:justify-between md:items-start mb-6 md:mb-8">
+      <div className="flex flex-col md:flex-row md:justify-between items-center mb-6 md:mb-8">
         <div>
-          <p className="text-gray-600 text-sm mb-2 hidden md:block">Available balance</p>
+          <p className="text-gray-600 text-md mb-2 hidden md:block">Available balance</p>
           <div className="flex items-center gap-3">
             <span className="bg-primary text-white text-xs font-bold px-3 py-1.5 rounded">
               {balance.currencySymbol}
@@ -92,11 +92,11 @@ function CardsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-6 md:gap-8 border-b border-gray-200 mb-6 md:mb-8 overflow-x-auto">
+      <div className="flex gap-6 md:gap-8 mb-6 md:mb-8 overflow-x-auto">
         <button
           onClick={() => setActiveTab('debit')}
-          className={`pb-4 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'debit'
-              ? 'text-primary border-primary'
+          className={`pb-4 text-md font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'debit'
+              ? 'text-black border-primary'
               : 'text-gray-400 border-transparent hover:text-gray-600'
             }`}
         >
@@ -104,8 +104,8 @@ function CardsPage() {
         </button>
         <button
           onClick={() => setActiveTab('company')}
-          className={`pb-4 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'company'
-              ? 'text-primary border-primary'
+          className={`pb-4 text-md font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'company'
+              ? 'text-black border-primary'
               : 'text-gray-400 border-transparent hover:text-gray-600'
             }`}
         >
@@ -126,7 +126,7 @@ function CardsPage() {
                 <button
                   key={card.id}
                   onClick={() => selectCard(card.id)}
-                  className={`w-2 h-2 rounded-full transition-colors ${card.id === currentCard?.id
+                  className={`w-3 h-3 rounded-full transition-colors ${card.id === currentCard?.id
                       ? 'bg-primary'
                       : 'bg-gray-300 hover:bg-gray-400'
                     }`}

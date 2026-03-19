@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { Transaction } from '@/types';
-import nextIcon from '@assets/Images/next.svg';
-import fileStorageIcon from '@assets/Images/file-storage.svg';
-import flightsIcon from '@assets/Images/flights.svg';
-import businessIcon from '@assets/Images/business-and-finance.svg';
-import megaphoneIcon from '@assets/Images/megaphone.svg';
-import transferIcon from '@assets/Images/Group 11889-1.svg';
-import downArrowIcon from '@assets/Images/down-arrow-1.svg';
+import nextIcon from '@assets/Images/next.svg?url';
+import fileStorageIcon from '@assets/Images/file-storage.svg?url';
+import flightsIcon from '@assets/Images/flights.svg?url';
+import businessIcon from '@assets/Images/business-and-finance.svg?url';
+import megaphoneIcon from '@assets/Images/megaphone.svg?url';
+import transferIcon from '@assets/Images/Group 11889-1.svg?url';
+import downArrowIcon from '@assets/Images/down-arrow-1.svg?url';
 
 interface RecentTransactionsProps {
   transactions: Transaction[];

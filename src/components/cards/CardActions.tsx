@@ -1,8 +1,8 @@
-import freezeIcon from '@assets/Images/Freeze card.svg';
-import spendLimitIcon from '@assets/Images/Set spend limit.svg';
-import gpayIcon from '@assets/Images/GPay.svg';
-import replaceIcon from '@assets/Images/Replace card.svg';
-import cancelIcon from '@assets/Images/Deactivate card.svg';
+import freezeIcon from '@assets/Images/Freeze card.svg?url';
+import spendLimitIcon from '@assets/Images/Set spend limit.svg?url';
+import gpayIcon from '@assets/Images/GPay.svg?url';
+import replaceIcon from '@assets/Images/Replace card.svg?url';
+import cancelIcon from '@assets/Images/Deactivate card.svg?url';
 
 interface CardAction {
   id: string;
