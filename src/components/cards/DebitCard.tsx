@@ -30,7 +30,9 @@ function DebitCard({ card }: DebitCardProps) {
       {/* Card */}
 
 
-      <div className="bg-primary rounded-[20px] p-6 md:p-8 text-white shadow-lg aspect-[1.586/1] flex flex-col justify-between relative">
+      <div className={`bg-primary rounded-[20px] p-6 md:p-8 text-white shadow-lg aspect-[1.586/1] flex flex-col justify-between relative transition-opacity duration-300 ${
+        card.isFrozen ? 'opacity-50' : 'opacity-100'
+      }`}>
         <button
           onClick={() => setShowCardNumber(!showCardNumber)}
           className="absolute -top-10 right-0 flex items-center gap-2 text-primary text-md font-semibold hover:text-primary-600 transition-colors z-10 "
@@ -39,6 +41,12 @@ function DebitCard({ card }: DebitCardProps) {
           <span>{showCardNumber ? 'Hide' : 'Show'} card number</span>
         </button>
 
+        {/* Frozen Badge */}
+        {card.isFrozen && (
+          <div className="absolute top-4 left-4 bg-white bg-opacity-90 text-primary px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+            FROZEN
+          </div>
+        )}
 
         {/* Aspire Logo - Top Right */}
         <div className="flex justify-end">

@@ -12,6 +12,7 @@ interface CardAction {
 }
 
 interface CardActionsProps {
+  isFrozen?: boolean;
   onFreeze: () => void;
   onSetSpendLimit: () => void;
   onAddToGPay: () => void;
@@ -20,6 +21,7 @@ interface CardActionsProps {
 }
 
 function CardActions({
+  isFrozen = false,
   onFreeze,
   onSetSpendLimit,
   onAddToGPay,
@@ -29,7 +31,7 @@ function CardActions({
   const actions: CardAction[] = [
     {
       id: 'freeze',
-      label: 'Freeze card',
+      label: isFrozen ? 'Unfreeze card' : 'Freeze card',
       icon: freezeIcon,
       onClick: onFreeze,
     },

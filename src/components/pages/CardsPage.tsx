@@ -1,13 +1,57 @@
-import { useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useBalance, useCards, useTransactions } from '@hooks/index';
-import { DebitCard, CardActions, CardDetails, RecentTransactions } from '@components/cards';
+import { DebitCard, CardActions, CardDetails, RecentTransactions, AddCardModal } from '@components/cards';
+import { useApp } from '@store/AppContext';
 import boxIcon from '@assets/Images/box.svg';
 
 function CardsPage() {
+  const { state } = useApp();
   const { balance, formattedBalance, isLoading: balanceLoading } = useBalance();
-  const { debitCards, selectedCard, selectCard, toggleCardFreeze, setSpendLimit, deleteCard, isLoading: cardsLoading } = useCards();
+  const { debitCards, selectedCard, selectCard, toggleCardFreeze, setSpendLimit, deleteCard, addCard, isLoading: cardsLoading } = useCards();
   const { recentTransactions } = useTransactions(selectedCard?.id);
   const [activeTab, setActiveTab] = useState<'debit' | 'company'>('debit');
+  const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
+
+  const currentCard = selectedCard || debitCards[0];
+
+  const handleFreeze = useCallback(() => {
+    if (currentCard) {
+      toggleCardFreeze(currentCard.id);
+    }
+  }, [currentCard, toggleCardFreeze]);
+
+  const handleSetSpendLimit = useCallback(() => {
+    if (currentCard) {
+      // In a real app, this would open a modal
+      const limit = prompt('Enter spend limit:');
+      if (limit) {
+        setSpendLimit(currentCard.id, parseFloat(limit));
+      }
+    }
+  }, [currentCard, setSpendLimit]);
+
+  const handleAddToGPay = useCallback(() => {
+    alert('Add to GPay functionality would be implemented here');
+  }, []);
+
+  const handleReplace = useCallback(() => {
+    alert('Replace card functionality would be implemented here');
+  }, []);
+
+  const handleCancel = useCallback(() => {
+    if (currentCard && confirm('Are you sure you want to cancel this card?')) {
+      deleteCard(currentCard.id);
+    }
+  }, [currentCard, deleteCard]);
+
+  const handleNewCard = useCallback(() => {
+    setIsAddCardModalOpen(true);
+  }, []);
+
+  const handleAddCard = useCallback(async (card: Omit<import('@/types').Card, 'id'>) => {
+    await addCard(card);
+  }, [addCard]);
+  
 
   if (balanceLoading || cardsLoading) {
     return (
@@ -16,42 +60,6 @@ function CardsPage() {
       </div>
     );
   }
-
-  const currentCard = selectedCard || debitCards[0];
-
-  const handleFreeze = () => {
-    if (currentCard) {
-      toggleCardFreeze(currentCard.id);
-    }
-  };
-
-  const handleSetSpendLimit = () => {
-    if (currentCard) {
-      // In a real app, this would open a modal
-      const limit = prompt('Enter spend limit:');
-      if (limit) {
-        setSpendLimit(currentCard.id, parseFloat(limit));
-      }
-    }
-  };
-
-  const handleAddToGPay = () => {
-    alert('Add to GPay functionality would be implemented here');
-  };
-
-  const handleReplace = () => {
-    alert('Replace card functionality would be implemented here');
-  };
-
-  const handleCancel = () => {
-    if (currentCard && confirm('Are you sure you want to cancel this card?')) {
-      deleteCard(currentCard.id);
-    }
-  };
-
-  const handleNewCard = () => {
-    alert('New card creation would be implemented here');
-  };
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -121,21 +129,25 @@ function CardsPage() {
           {currentCard && <DebitCard card={currentCard} />}
 
           {debitCards.length > 1 && (
-            <div className="flex justify-center gap-2">
-              {debitCards.map((card, index) => (
-                <button
-                  key={card.id}
-                  onClick={() => selectCard(card.id)}
-                  className={`w-2.5 h-2.5 rounded-full transition-colors ${card.id === currentCard?.id
-                      ? 'bg-primary'
-                      : 'bg-gray-300 hover:bg-gray-400'
-                    }`}
-                />
-              ))}
+            <div className="flex items-center justify-center gap-4">
+              <div className="flex gap-2">
+                {debitCards.map((card) => (
+                  <button
+                    key={card.id}
+                    onClick={() => selectCard(card.id)}
+                    className={`w-2.5 h-2.5 rounded-full transition-colors ${card.id === currentCard?.id
+                        ? 'bg-primary'
+                        : 'bg-gray-300 hover:bg-gray-400'
+                      }`}
+                    aria-label={`Select card ${card.cardNumber.slice(-4)}`}
+                  />
+                ))}
+              </div>
             </div>
           )}
 
           <CardActions
+            isFrozen={currentCard?.isFrozen}
             onFreeze={handleFreeze}
             onSetSpendLimit={handleSetSpendLimit}
             onAddToGPay={handleAddToGPay}
@@ -151,6 +163,14 @@ function CardsPage() {
         </div>
 
       </div>
+
+      {/* Add Card Modal */}
+      <AddCardModal
+        isOpen={isAddCardModalOpen}
+        onClose={() => setIsAddCardModalOpen(false)}
+        onAddCard={handleAddCard}
+        cardHolderName={state.user?.name || 'Card Holder'}
+      />
     </div>
   );
 }
