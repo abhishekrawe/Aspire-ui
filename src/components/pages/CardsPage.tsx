@@ -3,6 +3,7 @@ import { useBalance, useCards, useTransactions } from '@hooks/index';
 import { DebitCard, CardActions, CardDetails, RecentTransactions, AddCardModal, CancelCardModal } from '@components/cards';
 import { useApp } from '@store/AppContext';
 import boxIcon from '@assets/Images/box.svg';
+import logoIcon from '@assets/Images/Logo-1.svg?url';
 
 function CardsPage() {
   const { state } = useApp();
@@ -68,27 +69,96 @@ function CardsPage() {
 
   return (
     <div className="max-w-7xl mx-auto md:px-4">
-      {/* Mobile: Available Balance + New Card Button */}
-      <div className="md:hidden px-2 pt-6 pb-4">
-        <div className="flex items-start justify-between mb-6">
-          <div>
-            <p className="text-sm text-gray-500 mb-2">Available balance</p>
-            <div className="flex items-center gap-2">
-              <span className="bg-primary text-white text-xs font-bold px-2.5 py-1 rounded">
+      {/* Mobile: Fixed Navy Section - Stays in place */}
+      <div className="md:hidden fixed top-0 left-0 right-0 bg-[#0C365A] z-10 pb-8">
+        {/* Logo - Top Right Corner */}
+        <div className="absolute top-4 right-6 z-20">
+          <img src={logoIcon} alt="Aspire Logo" className="w-6 h-6" />
+        </div>
+
+        {/* Available Balance + New Card Button */}
+        <div className="px-6 pt-6 pb-4">
+          <p className="text-sm md:text-lg text-white mb-4">Account balance</p>
+          <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center gap-3">
+              <span className="bg-primary text-white text-sm font-bold px-3 md:px-3 py-1 md:py-1.5 rounded">
                 {balance.currencySymbol}
               </span>
-              <span className="text-2xl font-bold text-gray-900">
+              <span className="text-2xl md:text-3xl font-bold text-white">
                 {formattedBalance}
               </span>
             </div>
+            <button
+              onClick={handleNewCard}
+              className="bg-secondary hover:bg-secondary-600 text-white px-4 py-2.5 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
+            >
+              <img src={boxIcon} alt="New card" className="w-5 h-5" />
+              <span className="text-sm font-semibold">New card</span>
+            </button>
           </div>
-          <button
-            onClick={handleNewCard}
-            className="bg-secondary hover:bg-secondary-600 text-white p-3 rounded-lg flex items-center justify-center transition-colors shadow-sm"
-          >
-            <img src={boxIcon} alt="New card" className="w-5 h-5" />
-          </button>
         </div>
+
+        {/* Tabs */}
+        <div className="px-6">
+          <div className="flex gap-6 mb-6">
+            <button
+              onClick={() => setActiveTab('debit')}
+              className={`pb-3 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'debit'
+                  ? 'text-white border-primary'
+                  : 'text-white/50 border-transparent'
+                }`}
+            >
+              My debit cards
+            </button>
+            <button
+              onClick={() => setActiveTab('company')}
+              className={`pb-3 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'company'
+                  ? 'text-white border-primary'
+                  : 'text-white/50 border-transparent'
+                }`}
+            >
+              All company cards
+            </button>
+          </div>
+        </div>
+
+        {/* Card Carousel */}
+        {activeTab === 'debit' && (
+          <div className="relative">
+            <div className="overflow-x-auto scrollbar-hide -mx-6 px-6 md:px-0">
+              <div className="flex gap-4 p-4 md:pb-4">
+                {debitCards.map((card, index) => (
+                  <div
+                    key={card.id}
+                    onClick={() => selectCard(card.id)}
+                    className={`flex-shrink-0 w-[98%] transition-all duration-300 ${index === 0 ? 'pl-1' : ''}`}
+                    style={{ scrollSnapAlign: 'start' }}
+                  >
+                    <DebitCard card={card} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Card Indicators */}
+            {debitCards.length > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-4">
+                {debitCards.map((card) => (
+                  <button
+                    key={card.id}
+                    onClick={() => selectCard(card.id)}
+                    className={`w-2.5 h-2.5 rounded-full transition-colors ${
+                      card.id === currentCard?.id
+                        ? 'bg-primary'
+                        : 'bg-white/30'
+                    }`}
+                    aria-label={`Select card ${card.cardNumber.slice(-4)}`}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Desktop: Balance Section */}
@@ -115,11 +185,11 @@ function CardsPage() {
         </button>
       </div>
 
-      {/* Tabs */}
-      <div className="flex gap-6 md:gap-8 mb-6 md:mb-8 overflow-x-auto px-2 md:px-0">
+      {/* Tabs - Desktop Only */}
+      <div className="hidden md:flex gap-6 md:gap-8 mb-6 md:mb-8 overflow-x-auto">
         <button
           onClick={() => setActiveTab('debit')}
-          className={`pb-2 md:pb-4 text-sm md:text-md font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'debit'
+          className={`pb-4 text-md font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'debit'
               ? 'text-black border-primary'
               : 'text-gray-400 border-transparent hover:text-gray-600'
             }`}
@@ -128,7 +198,7 @@ function CardsPage() {
         </button>
         <button
           onClick={() => setActiveTab('company')}
-          className={`pb-2 md:pb-4 text-sm md:text-md font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'company'
+          className={`pb-4 text-md font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'company'
               ? 'text-black border-primary'
               : 'text-gray-400 border-transparent hover:text-gray-600'
             }`}
@@ -137,74 +207,43 @@ function CardsPage() {
         </button>
       </div>
 
-      {/* Mobile Layout */}
+      {/* Mobile Layout - Spacer for fixed header + Scrollable white container */}
       <div className="md:hidden">
-        {activeTab === 'debit' ? (
-          <>
-            {/* Horizontal Scrollable Cards - Show 10% of next card */}
-            <div className="relative mb-6">
-              <div className="overflow-x-auto scrollbar-hide px-2">
-                <div className="flex gap-4 pb-4">
-                  {debitCards.map((card, index) => (
-                    <div
-                      key={card.id}
-                      onClick={() => selectCard(card.id)}
-                      className={`flex-shrink-0 transition-all duration-300 ${
-                        index === 0 ? 'w-[92%]' : 'w-[92%]'
-                      }`}
-                      style={{ scrollSnapAlign: 'start' }}
-                    >
-                      <DebitCard card={card} />
-                    </div>
-                  ))}
-                </div>
-              </div>
+        {/* Spacer to push content below fixed navy section */}
+        <div className="h-[430px]"></div>
 
-              {/* Card Indicators */}
-              {debitCards.length > 1 && (
-                <div className="flex items-center justify-center gap-2 mt-4">
-                  {debitCards.map((card) => (
-                    <button
-                      key={card.id}
-                      onClick={() => selectCard(card.id)}
-                      className={`w-2 h-2 rounded-full transition-colors ${
-                        card.id === currentCard?.id
-                          ? 'bg-primary'
-                          : 'bg-gray-300'
-                      }`}
-                      aria-label={`Select card ${card.cardNumber.slice(-4)}`}
-                    />
-                  ))}
-                </div>
-              )}
+        {/* Scrollable White Container */}
+        {activeTab === 'debit' ? (
+          <div className="bg-white rounded-t-3xl relative z-20 px-0 md:px-6 pt-0 md:pt-8 pb-6 space-y-6 min-h-screen">
+            {/* Action Buttons - All 5 visible without scrolling */}
+            <CardActions
+              isFrozen={currentCard?.isFrozen}
+              onFreeze={handleFreeze}
+              onSetSpendLimit={handleSetSpendLimit}
+              onAddToGPay={handleAddToGPay}
+              onReplace={handleReplace}
+              onCancel={handleCancel}
+            />
+
+            <div className='p-3'>
+
+               {/* Card Details */}
+            {currentCard && <CardDetails card={currentCard} />}
+
+            {/* Gap for mobile */}
+            <div className="h-4 md:h-0"></div>
+
+            {/* Recent Transactions */}
+            <RecentTransactions transactions={recentTransactions} />
+
             </div>
 
            
-            <div className='bg-red-300 '> // this div will be scrollable to top of the div
-
-              {/* Scrollable Action Buttons */}
-              <div className="">
-              <CardActions
-                isFrozen={currentCard?.isFrozen}
-                onFreeze={handleFreeze}
-                onSetSpendLimit={handleSetSpendLimit}
-                onAddToGPay={handleAddToGPay}
-                onReplace={handleReplace}
-                onCancel={handleCancel}
-              />
-            </div>
-
-            {/* Card Details */}
-            <div className="space-y-4">
-              {currentCard && <CardDetails card={currentCard} />}
-              <RecentTransactions transactions={recentTransactions} />
-            </div>
-
-            </div>
-            
-          </>
+          </div>
         ) : (
-          <p className="px-6">Coming soon</p>
+          <div className="bg-white rounded-t-3xl relative z-20 px-6 pt-8 pb-6 min-h-screen">
+            <p className="text-gray-500">Coming soon</p>
+          </div>
         )}
       </div>
 
@@ -276,4 +315,3 @@ function CardsPage() {
 }
 
 export default CardsPage;
-

@@ -62,51 +62,26 @@ function CardActions({
   ];
 
   return (
-    <div className="bg-[#EDF3FF] rounded-2xl shadow-sm overflow-hidden">
-      {/* Mobile: Horizontal Scrollable */}
-      <div className="md:hidden overflow-x-auto scrollbar-hide">
-        <div className="flex p-4 gap-6 min-w-max">
-          {actions.map((action) => (
-            <button
-              key={action.id}
-              onClick={action.disabled ? undefined : action.onClick}
-              disabled={action.disabled}
-              className={`flex flex-col items-center gap-2 min-w-[64px] ${
-                action.disabled ? 'cursor-default opacity-100' : 'cursor-pointer'
-              }`}
-            >
-              <div className="w-12 h-12 flex items-center justify-center bg-white rounded-full">
-                <img src={action.icon} alt={action.label} className="w-7 h-7" />
-              </div>
-              <span className="text-xs text-gray-700 text-center leading-tight whitespace-nowrap">
-                {action.label}
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Desktop: Grid Layout */}
-      <div className="hidden md:block p-4 md:px-6 py-4">
-        <div className="grid grid-cols-5 gap-3 md:gap-4">
-          {actions.map((action) => (
-            <button
-              key={action.id}
-              onClick={action.disabled ? undefined : action.onClick}
-              disabled={action.disabled}
-              className={`flex flex-col items-center gap-2 md:gap-3 p-2 md:p-3 transition-colors group ${
-                action.disabled ? 'cursor-default opacity-100' : 'cursor-pointer'
-              }`}
-            >
-              <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-colors">
-                <img src={action.icon} alt={action.label} className="w-7 h-7 md:w-10 md:h-10" />
-              </div>
-              <span className="text-xs md:text-sm text-gray-700 text-center leading-tight">
-                {action.label}
-              </span>
-            </button>
-          ))}
-        </div>
+    <div className="bg-[#EDF3FF] rounded-2xl shadow-sm overflow-hidden p-4 md:px-6 md:py-4">
+      {/* Mobile & Desktop: Grid Layout - All 5 buttons visible */}
+      <div className="grid grid-cols-5 gap-2 md:gap-4">
+        {actions.map((action) => (
+          <button
+            key={action.id}
+            onClick={action.disabled ? undefined : action.onClick}
+            disabled={action.disabled}
+            className={`flex flex-col items-center gap-2 md:gap-3 p-1 md:p-3 transition-colors group ${
+              action.disabled ? 'cursor-default opacity-100' : 'cursor-pointer'
+            }`}
+          >
+            <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white md:bg-transparent rounded-full md:rounded-none transition-colors">
+              <img src={action.icon} alt={action.label} className="w-6 h-6 md:w-10 md:h-10" />
+            </div>
+            <span className="text-[10px] md:text-sm text-gray-700 text-center leading-tight">
+              {action.label}
+            </span>
+          </button>
+        ))}
       </div>
     </div>
   );

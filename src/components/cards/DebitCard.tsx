@@ -30,26 +30,22 @@ function DebitCard({ card }: DebitCardProps) {
   };
 
   return (
-    <div className="relative">
-      {/* Show Card Number Button - Positioned above the card */}
-
+    <div className="relative pt-5 md:pt-0">
+      {/* Show Card Number Button - Positioned outside card at top-right corner */}
+      <button
+        onClick={() => setShowCardNumber(!showCardNumber)}
+        className="absolute -top-4 md:-top-12 right-0 md:right-0 flex items-center gap-2 bg-white md:bg-transparent text-primary md:text-primary text-xs md:text-base font-semibold hover:bg-gray-50 md:hover:bg-white/10 transition-all z-20 px-2 py-2 md:px-5 md:py-3 rounded-t-lg"
+      >
+        <img src={eyeIcon} alt="Show" className="w-5 h-5 md:w-6 md:h-6" />
+        <span>{showCardNumber ? 'Hide' : 'Show'} card number</span>
+      </button>
 
       {/* Card */}
-
-
       <div
-        className={`rounded-[20px] p-6 md:p-8 text-white shadow-lg aspect-[1.586/1] flex flex-col justify-between relative transition-opacity duration-300 ${
-          card.isFrozen ? 'opacity-50' : 'opacity-100'
-        }`}
+        className={`rounded-tl-[20px] rounded-bl-[20px] rounded-br-[20px] rounded-tr-none md:rounded-[20px] p-6 md:p-8 text-white shadow-lg aspect-[1.586/1] flex flex-col justify-between relative transition-opacity duration-300 ${card.isFrozen ? 'opacity-50' : 'opacity-100'
+          }`}
         style={{ backgroundColor: card.color || '#01D167' }}
       >
-        <button
-          onClick={() => setShowCardNumber(!showCardNumber)}
-          className="absolute -top-10 right-0 flex items-center gap-2 text-primary text-md font-semibold hover:text-primary-600 transition-colors z-10 "
-        >
-          <img src={eyeIcon} alt="Show" className="w-5 h-5" />
-          <span>{showCardNumber ? 'Hide' : 'Show'} card number</span>
-        </button>
 
         {/* Frozen Badge */}
         {card.isFrozen && (

@@ -12,7 +12,7 @@ function CardDetails({ card }: CardDetailsProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-md md:shadow-sm overflow-hidden">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="w-full flex items-center justify-between p-4 md:p-6 hover:bg-gray-50 bg-[#F5F9FF] transition-colors"

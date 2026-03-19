@@ -17,7 +17,7 @@ function MainLayout({ children }: MainLayoutProps) {
         {/* Header removed */}
 
         {/* Page Content */}
-        <main className="flex-1 overflow-auto p-2 md:p-16 pb-20 md:pb-8">
+        <main className="flex-1 overflow-auto p-0 md:p-2 md:p-16 py-20 md:py-16">
           {children}
         </main>
       </div>
