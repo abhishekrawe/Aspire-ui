@@ -10,6 +10,7 @@ export interface Card {
   isFrozen: boolean;
   spendLimit?: number;
   currentSpend?: number;
+  color?: string;
 }
 
 // Transaction Types

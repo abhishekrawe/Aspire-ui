@@ -1,6 +1,6 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import { useBalance, useCards, useTransactions } from '@hooks/index';
-import { DebitCard, CardActions, CardDetails, RecentTransactions, AddCardModal } from '@components/cards';
+import { DebitCard, CardActions, CardDetails, RecentTransactions, AddCardModal, CancelCardModal } from '@components/cards';
 import { useApp } from '@store/AppContext';
 import boxIcon from '@assets/Images/box.svg';
 
@@ -11,6 +11,7 @@ function CardsPage() {
   const { recentTransactions } = useTransactions(selectedCard?.id);
   const [activeTab, setActiveTab] = useState<'debit' | 'company'>('debit');
   const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
 
   const currentCard = selectedCard || debitCards[0];
 
@@ -39,7 +40,11 @@ function CardsPage() {
   }, []);
 
   const handleCancel = useCallback(() => {
-    if (currentCard && confirm('Are you sure you want to cancel this card?')) {
+    setIsCancelModalOpen(true);
+  }, []);
+
+  const handleConfirmCancel = useCallback(() => {
+    if (currentCard) {
       deleteCard(currentCard.id);
     }
   }, [currentCard, deleteCard]);
@@ -122,47 +127,51 @@ function CardsPage() {
       </div>
 
       {/* Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 p-6 md:p-8 lg:py-20 lg:px-12 rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.08)]">
+      {activeTab === 'debit' ? (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 p-6 md:p-8 lg:py-20 lg:px-12 rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.08)]">
 
-        {/* Card Section */}
-        <div className="space-y-6">
-          {currentCard && <DebitCard card={currentCard} />}
+          {/* Card Section */}
+          <div className="space-y-6">
+            {currentCard && <DebitCard card={currentCard} />}
 
-          {debitCards.length > 1 && (
-            <div className="flex items-center justify-center gap-4">
-              <div className="flex gap-2">
-                {debitCards.map((card) => (
-                  <button
-                    key={card.id}
-                    onClick={() => selectCard(card.id)}
-                    className={`w-2.5 h-2.5 rounded-full transition-colors ${card.id === currentCard?.id
-                        ? 'bg-primary'
-                        : 'bg-gray-300 hover:bg-gray-400'
-                      }`}
-                    aria-label={`Select card ${card.cardNumber.slice(-4)}`}
-                  />
-                ))}
+            {debitCards.length > 1 && (
+              <div className="flex items-center justify-center gap-4">
+                <div className="flex gap-2">
+                  {debitCards.map((card) => (
+                    <button
+                      key={card.id}
+                      onClick={() => selectCard(card.id)}
+                      className={`w-2.5 h-2.5 rounded-full transition-colors ${card.id === currentCard?.id
+                          ? 'bg-primary'
+                          : 'bg-gray-300 hover:bg-gray-400'
+                        }`}
+                      aria-label={`Select card ${card.cardNumber.slice(-4)}`}
+                    />
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          <CardActions
-            isFrozen={currentCard?.isFrozen}
-            onFreeze={handleFreeze}
-            onSetSpendLimit={handleSetSpendLimit}
-            onAddToGPay={handleAddToGPay}
-            onReplace={handleReplace}
-            onCancel={handleCancel}
-          />
+            <CardActions
+              isFrozen={currentCard?.isFrozen}
+              onFreeze={handleFreeze}
+              onSetSpendLimit={handleSetSpendLimit}
+              onAddToGPay={handleAddToGPay}
+              onReplace={handleReplace}
+              onCancel={handleCancel}
+            />
+          </div>
+
+          {/* Card Details Sidebar */}
+          <div className="space-y-4">
+            {currentCard && <CardDetails card={currentCard} />}
+            <RecentTransactions transactions={recentTransactions} />
+          </div>
+
         </div>
-
-        {/* Card Details Sidebar */}
-        <div className="space-y-4">
-          {currentCard && <CardDetails card={currentCard} />}
-          <RecentTransactions transactions={recentTransactions} />
-        </div>
-
-      </div>
+      ) : (
+          <p> Coming soon </p>
+      )}
 
       {/* Add Card Modal */}
       <AddCardModal
@@ -170,6 +179,14 @@ function CardsPage() {
         onClose={() => setIsAddCardModalOpen(false)}
         onAddCard={handleAddCard}
         cardHolderName={state.user?.name || 'Card Holder'}
+      />
+
+      {/* Cancel Card Modal */}
+      <CancelCardModal
+        isOpen={isCancelModalOpen}
+        onClose={() => setIsCancelModalOpen(false)}
+        onConfirm={handleConfirmCancel}
+        cardNumber={currentCard?.cardNumber || ''}
       />
     </div>
   );

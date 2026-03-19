@@ -8,7 +8,8 @@ interface CardAction {
   id: string;
   label: string;
   icon: string;
-  onClick: () => void;
+  onClick?: () => void;
+  disabled?: boolean;
 }
 
 interface CardActionsProps {
@@ -23,9 +24,6 @@ interface CardActionsProps {
 function CardActions({
   isFrozen = false,
   onFreeze,
-  onSetSpendLimit,
-  onAddToGPay,
-  onReplace,
   onCancel,
 }: CardActionsProps) {
   const actions: CardAction[] = [
@@ -34,30 +32,32 @@ function CardActions({
       label: isFrozen ? 'Unfreeze card' : 'Freeze card',
       icon: freezeIcon,
       onClick: onFreeze,
+      disabled: false,
     },
     {
       id: 'spend-limit',
       label: 'Set spend limit',
       icon: spendLimitIcon,
-      onClick: onSetSpendLimit,
+      disabled: true,
     },
     {
       id: 'gpay',
       label: 'Add to GPay',
       icon: gpayIcon,
-      onClick: onAddToGPay,
+      disabled: true,
     },
     {
       id: 'replace',
       label: 'Replace card',
       icon: replaceIcon,
-      onClick: onReplace,
+      disabled: true,
     },
     {
       id: 'cancel',
       label: 'Cancel card',
       icon: cancelIcon,
       onClick: onCancel,
+      disabled: false,
     },
   ];
 
@@ -67,8 +67,11 @@ function CardActions({
         {actions.map((action) => (
           <button
             key={action.id}
-            onClick={action.onClick}
-            className="flex flex-col items-center gap-2 md:gap-3 p-2 md:p-3 transition-colors group"
+            onClick={action.disabled ? undefined : action.onClick}
+            disabled={action.disabled}
+            className={`flex flex-col items-center gap-2 md:gap-3 p-2 md:p-3 transition-colors group ${
+              action.disabled ? 'cursor-default opacity-100' : 'cursor-pointer'
+            }`}
           >
             <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-colors">
               <img src={action.icon} alt={action.label} className="w-1 h-5 md:w-10 md:h-10" />
