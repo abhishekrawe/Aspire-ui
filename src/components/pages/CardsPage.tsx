@@ -114,7 +114,7 @@ function CardsPage() {
       </div>
 
       {/* Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 p-6 md:p-8 lg:p-12 rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.08)]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 p-6 md:p-8 lg:py-20 lg:px-12 rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.08)]">
 
         {/* Card Section */}
         <div className="space-y-6">
@@ -126,7 +126,7 @@ function CardsPage() {
                 <button
                   key={card.id}
                   onClick={() => selectCard(card.id)}
-                  className={`w-3 h-3 rounded-full transition-colors ${card.id === currentCard?.id
+                  className={`w-2.5 h-2.5 rounded-full transition-colors ${card.id === currentCard?.id
                       ? 'bg-primary'
                       : 'bg-gray-300 hover:bg-gray-400'
                     }`}

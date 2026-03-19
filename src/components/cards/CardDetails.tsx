@@ -35,17 +35,9 @@ function CardDetails({ card }: CardDetailsProps) {
       {isExpanded && (
         <div className="px-5 md:px-6 pb-5 md:pb-6 space-y-4 border-t border-gray-100">
           <div className="pt-4 space-y-3">
-            <DetailRow label="Card holder name" value={card.cardHolderName} />
-            <DetailRow label="Card number" value={formatCardNumber(card.cardNumber)} />
-            <DetailRow label="Expiry date" value={card.expiryDate} />
-            <DetailRow label="CVV" value="***" />
-            <DetailRow label="Card type" value={card.cardType.toUpperCase()} />
-            {card.spendLimit && (
-              <DetailRow
-                label="Spend limit"
-                value={`S$ ${card.spendLimit.toLocaleString()}`}
-              />
-            )}
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-gray-500">Nothing to Show here  </span>
+            </div>
           </div>
         </div>
       )}
@@ -53,19 +45,6 @@ function CardDetails({ card }: CardDetailsProps) {
   );
 }
 
-function DetailRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="flex justify-between items-center">
-      <span className="text-sm text-gray-500">{label}</span>
-      <span className="text-sm text-gray-900 font-medium">{value}</span>
-    </div>
-  );
-}
-
-function formatCardNumber(number: string): string {
-  const cleaned = number.replace(/\s/g, '');
-  return cleaned.match(/.{1,4}/g)?.join(' ') || '';
-}
 
 export default CardDetails;
 

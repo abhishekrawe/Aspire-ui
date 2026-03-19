@@ -25,16 +25,20 @@ function DebitCard({ card }: DebitCardProps) {
   return (
     <div className="relative">
       {/* Show Card Number Button - Positioned above the card */}
-      <button
-        onClick={() => setShowCardNumber(!showCardNumber)}
-        className="absolute -top-8 right-0 flex items-center gap-2 text-primary text-sm font-medium hover:text-primary-600 transition-colors z-10"
-      >
-        <img src={eyeIcon} alt="Show" className="w-5 h-5" />
-        <span>{showCardNumber ? 'Hide' : 'Show'} card number</span>
-      </button>
+
 
       {/* Card */}
+
+
       <div className="bg-primary rounded-[20px] p-6 md:p-8 text-white shadow-lg aspect-[1.586/1] flex flex-col justify-between relative">
+        <button
+          onClick={() => setShowCardNumber(!showCardNumber)}
+          className="absolute -top-10 right-0 flex items-center gap-2 text-primary text-md font-semibold hover:text-primary-600 transition-colors z-10 "
+        >
+          <img src={eyeIcon} alt="Show" className="w-5 h-5" />
+          <span>{showCardNumber ? 'Hide' : 'Show'} card number</span>
+        </button>
+
 
         {/* Aspire Logo - Top Right */}
         <div className="flex justify-end">

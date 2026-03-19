@@ -13,7 +13,7 @@ interface RecentTransactionsProps {
 }
 
 function RecentTransactions({ transactions }: RecentTransactionsProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
     const [visibleCount, setVisibleCount] = useState(4);
 
   // Ensure at least one Travel item is shown (demo), so UI shows flight icon
@@ -58,7 +58,7 @@ function RecentTransactions({ transactions }: RecentTransactionsProps) {
             <div className="p-6 text-center text-gray-500 text-sm">No recent transactions</div>
           ) : (
             <>
-              <div className="divide-y rounded-b-xl rounded-t-none  bg-black/5">
+              <div className="divide-y">
                 {displayedTransactions.slice(0, visibleCount).map((transaction) => (
                   <TransactionItem key={transaction.id} transaction={transaction} />
                 ))}
@@ -116,16 +116,16 @@ function TransactionItem({ transaction }: { transaction: Transaction }) {
 
       {/* Transaction Details */}
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-gray-900 truncate">
+        <p className="text-md font-semibold text-gray-900 truncate">
           {transaction.merchantName}
         </p>
-        <p className="text-xs text-gray-500 mt-1">{formatDate(transaction.date)}</p>
+        <p className="text-md text-gray-500 mt-1">{formatDate(transaction.date)}</p>
         {transaction.description && (
           <div className="flex items-center gap-3 mt-2">
-            <div className="w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#325BAF' }}>
+            <div className="w-8 h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#325BAF' }}>
               <img src={businessIcon} alt="desc" className="w-3.5 h-3.5" style={{ filter: 'brightness(0) invert(1)' }} />
             </div>
-            <span className="text-sm text-navy">{transaction.description}</span>
+            <span className="text-sm font-medium text-navy">{transaction.description}</span>
           </div>
         )}
       </div>

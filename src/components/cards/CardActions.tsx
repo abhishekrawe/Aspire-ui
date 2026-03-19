@@ -60,7 +60,7 @@ function CardActions({
   ];
 
   return (
-    <div className="bg-[#EDF3FF] rounded-2xl p-4 md:p-6 shadow-sm">
+    <div className="bg-[#EDF3FF] rounded-2xl p-4 md:px-6 py-4 shadow-sm">
       <div className="grid grid-cols-5 gap-3 md:gap-4">
         {actions.map((action) => (
           <button
