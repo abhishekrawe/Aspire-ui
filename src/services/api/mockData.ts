@@ -55,7 +55,7 @@ export const mockTransactions: Transaction[] = [
   {
     id: 'txn-002',
     cardId: 'card-001',
-    merchantName: 'Hamleys',
+    merchantName: 'Naturals Ice Cream',
     amount: 150,
     currency: 'SGD',
     date: '2020-05-20',
@@ -67,7 +67,7 @@ export const mockTransactions: Transaction[] = [
   {
     id: 'txn-003',
     cardId: 'card-001',
-    merchantName: 'Hamleys',
+    merchantName: 'Recharge',
     amount: 150,
     currency: 'SGD',
     date: '2020-05-20',

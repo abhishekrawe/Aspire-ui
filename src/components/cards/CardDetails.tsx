@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Card } from '@/types';
 import nextIcon from '@assets/Images/next.svg';
+import downArrowIcon from '@assets/Images/down-arrow-1.svg';
+import docIcon from '@assets/Images/Group 11889.svg';
 
 interface CardDetailsProps {
   card: Card;
@@ -13,31 +15,21 @@ function CardDetails({ card }: CardDetailsProps) {
     <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full flex items-center justify-between p-5 md:p-6 hover:bg-gray-50 transition-colors"
+        className="w-full flex items-center justify-between p-5 md:p-6 hover:bg-gray-50 bg-[#F5F9FF] transition-colors"
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-[#325BAF] flex items-center justify-center">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="white"
-              strokeWidth="2"
-            >
-              <rect x="1" y="4" width="22" height="16" rx="2" />
-              <line x1="1" y1="10" x2="23" y2="10" />
-            </svg>
+          <div className="w-10 h-10 flex items-center justify-center">
+            <img src={docIcon} alt="Card" className="w-6 h-6" />
           </div>
-          <span className="text-gray-900 font-medium">Card details</span>
+          <span className="text-navy font-medium text-lg">Card details</span>
         </div>
-        <img
-          src={nextIcon}
-          alt="Toggle"
-          className={`w-5 h-5 transition-transform ${
-            isExpanded ? 'rotate-90' : ''
-          }`}
-        />
+        <div className="w-8 h-8 flex items-center justify-center">
+          <img
+            src={downArrowIcon}
+            alt="Toggle"
+            className={`w-6 h-6 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+          />
+        </div>
       </button>
 
       {isExpanded && (

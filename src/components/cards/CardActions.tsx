@@ -60,16 +60,16 @@ function CardActions({
   ];
 
   return (
-    <div className="bg-white rounded-2xl p-4 md:p-6 shadow-sm">
+    <div className="bg-[#EDF3FF] rounded-2xl p-4 md:p-6 shadow-sm">
       <div className="grid grid-cols-5 gap-3 md:gap-4">
         {actions.map((action) => (
           <button
             key={action.id}
             onClick={action.onClick}
-            className="flex flex-col items-center gap-2 md:gap-3 p-2 md:p-3 rounded-xl hover:bg-gray-50 transition-colors group"
+            className="flex flex-col items-center gap-2 md:gap-3 p-2 md:p-3 transition-colors group"
           >
-            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-[#325BAF] flex items-center justify-center group-hover:bg-[#2a4d96] transition-colors">
-              <img src={action.icon} alt={action.label} className="w-5 h-5 md:w-6 md:h-6" />
+            <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center transition-colors">
+              <img src={action.icon} alt={action.label} className="w-1 h-5 md:w-10 md:h-10" />
             </div>
             <span className="text-xs md:text-sm text-gray-700 text-center leading-tight">
               {action.label}

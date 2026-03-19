@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useBalance, useCards, useTransactions } from '@hooks/index';
 import { DebitCard, CardActions, CardDetails, RecentTransactions } from '@components/cards';
-import addIcon from '@assets/Images/add.svg';
+import boxIcon from '@assets/Images/box.svg';
 
 function CardsPage() {
   const { balance, formattedBalance, isLoading: balanceLoading } = useBalance();
@@ -82,9 +82,11 @@ function CardsPage() {
         </div>
         <button
           onClick={handleNewCard}
-          className="mt-4 md:mt-0 bg-primary hover:bg-primary-600 text-white px-6 py-3 rounded-lg flex items-center gap-2 font-medium transition-colors shadow-sm"
+          className="mt-4 md:mt-0 bg-secondary hover:bg-secondary-600 text-white px-4 py-2 rounded-xl flex items-center gap-3 font-semibold text-base transition-colors shadow-sm"
         >
-          <img src={addIcon} alt="Add" className="w-5 h-5" />
+          <span className="w-10 h-10 flex items-center justify-center">
+            <img src={boxIcon} alt="Box" className="w-6 h-6" />
+          </span>
           <span>New card</span>
         </button>
       </div>
@@ -93,49 +95,46 @@ function CardsPage() {
       <div className="flex gap-6 md:gap-8 border-b border-gray-200 mb-6 md:mb-8 overflow-x-auto">
         <button
           onClick={() => setActiveTab('debit')}
-          className={`pb-4 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors ${
-            activeTab === 'debit'
+          className={`pb-4 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'debit'
               ? 'text-primary border-primary'
               : 'text-gray-400 border-transparent hover:text-gray-600'
-          }`}
+            }`}
         >
           My debit cards
         </button>
         <button
           onClick={() => setActiveTab('company')}
-          className={`pb-4 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors ${
-            activeTab === 'company'
+          className={`pb-4 text-sm font-semibold whitespace-nowrap border-b-2 transition-colors ${activeTab === 'company'
               ? 'text-primary border-primary'
               : 'text-gray-400 border-transparent hover:text-gray-600'
-          }`}
+            }`}
         >
           All company cards
         </button>
       </div>
 
       {/* Cards Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12 p-6 md:p-8 lg:p-12 rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.08)]">
+
         {/* Card Section */}
-        <div className="lg:col-span-7 space-y-6">
+        <div className="space-y-6">
           {currentCard && <DebitCard card={currentCard} />}
 
-          {/* Card count indicator */}
           {debitCards.length > 1 && (
             <div className="flex justify-center gap-2">
               {debitCards.map((card, index) => (
                 <button
                   key={card.id}
                   onClick={() => selectCard(card.id)}
-                  className={`w-2 h-2 rounded-full transition-colors ${
-                    card.id === currentCard?.id ? 'bg-primary' : 'bg-gray-300 hover:bg-gray-400'
-                  }`}
-                  aria-label={`Select card ${index + 1}`}
+                  className={`w-2 h-2 rounded-full transition-colors ${card.id === currentCard?.id
+                      ? 'bg-primary'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                    }`}
                 />
               ))}
             </div>
           )}
 
-          {/* Card Actions */}
           <CardActions
             onFreeze={handleFreeze}
             onSetSpendLimit={handleSetSpendLimit}
@@ -146,10 +145,11 @@ function CardsPage() {
         </div>
 
         {/* Card Details Sidebar */}
-        <div className="lg:col-span-5 space-y-4">
+        <div className="space-y-4">
           {currentCard && <CardDetails card={currentCard} />}
           <RecentTransactions transactions={recentTransactions} />
         </div>
+
       </div>
     </div>
   );
