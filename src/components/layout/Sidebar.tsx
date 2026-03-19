@@ -1,18 +1,14 @@
 import { NavLink } from 'react-router-dom';
 import { NAVIGATION_ITEMS } from '@utils/constants';
+import aspireLogo from '@assets/Images/Logo.svg';
 
 function Sidebar() {
   return (
-    <aside className="w-[280px] bg-navy text-white flex flex-col shadow-sidebar">
+    <aside className="w-[280px] bg-navy text-white flex flex-col shadow-sidebar hidden md:flex">
       {/* Logo */}
       <div className="p-8">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
-          <span className="text-2xl font-bold">aspire</span>
+          <img src={aspireLogo} alt="Aspire" className="h-8" />
         </div>
         <p className="text-gray-400 text-sm mt-4 leading-relaxed">
           Trusted way of banking for 3,000+ SMEs and startups in Singapore
