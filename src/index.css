@@ -21,6 +21,16 @@ body {
   height: 100%;
 }
 
+/* Hide scrollbar for mobile card carousel */
+.scrollbar-hide {
+  -ms-overflow-style: none; 
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; 
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;

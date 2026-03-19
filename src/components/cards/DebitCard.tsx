@@ -64,20 +64,20 @@ function DebitCard({ card }: DebitCardProps) {
         </div>
 
         {/* Card Content - Middle Section */}
-        <div className="flex-1 flex flex-col justify-center">
+        <div className="flex-1 flex flex-col justify-center md-mt-0 mt-6">
 
           {/* Card Holder Name */}
-          <p className="text-2xl md:text-[32px] font-bold mb-6 md:mb-8 tracking-wide">
+          <p className=" text-xl md:text-2xl md:text-[32px] font-bold mb-2 md:mb-8 tracking-wide">
             {card.cardHolderName}
           </p>
 
           {/* Card Number */}
-          <div className="text-2xl md:text-[28px] tracking-[0.2em] font-bold mb-4">
+          <div className="text-lg md:text-2xl md:text-[28px] tracking-[0.2em] font-bold mb-0 md:mb-4">
             {formatCardNumber(card.cardNumber)}
           </div>
 
           {/* 👉 Moved here (Expiry + CVV) */}
-          <div className="flex gap-6 md:gap-8 text-lg md:text-lg font-bold mt-4">
+          <div className="flex gap-6 md:gap-8 text-sm md:text-lg md:text-lg font-bold mt-4">
             <span>Thru: {card.expiryDate}</span>
             <span>CVV: {showCardNumber ? card.cvv : '***'}</span>
           </div>
