@@ -1,21 +1,16 @@
 import { NavLink } from 'react-router-dom';
 import { NAVIGATION_ITEMS } from '@utils/constants';
-import aspireLogo from '@assets/Images/Aspire-Logo.svg?url';
-import homeIcon from '@assets/Images/Home.svg?url';
-import cardIcon from '@assets/Images/Card.svg?url';
-import paymentsIcon from '@assets/Images/Payments.svg?url';
-import creditIcon from '@assets/Images/Credit.svg?url';
-import accountIcon from '@assets/Images/Account.svg?url';
+// Images loaded directly
 
 
 // Simple icon component - will be replaced with proper icons later
 function NavIcon({ icon }: { icon: string }) {
   const iconMap: Record<string, JSX.Element> = {
-    home: <img src={homeIcon} alt="Home" className="w-6 h-6" />,
-    cards: <img src={cardIcon} alt="Cards" className="w-6 h-6" />,
-    payments: <img src={paymentsIcon} alt="Payments" className="w-6 h-6" />,
-    credit: <img src={creditIcon} alt="Credit" className="w-6 h-6" />,
-    settings: <img src={accountIcon} alt="Account" className="w-6 h-6" />,
+    home: <img src="/src/assets/Images/Home.svg" alt="Home" className="w-6 h-6" />,
+    cards: <img src="/src/assets/Images/Card.svg" alt="Cards" className="w-6 h-6" />,
+    payments: <img src="/src/assets/Images/Payments.svg" alt="Payments" className="w-6 h-6" />,
+    credit: <img src="/src/assets/Images/Credit.svg" alt="Credit" className="w-6 h-6" />,
+    settings: <img src="/src/assets/Images/Account.svg" alt="Account" className="w-6 h-6" />,
   };
 
   return iconMap[icon] || null;
@@ -27,7 +22,7 @@ function Sidebar() {
       {/* Logo */}
       <div className="px-10 py-12">
         <div className="flex items-center gap-2">
-          <img src={aspireLogo} alt="Aspire" className="h-10" />
+          <img src="/src/assets/Images/Aspire-Logo.svg" alt="Aspire" className="h-10" />
         </div>
         <p className="text-gray-400 text-md mt-6 leading-relaxed">
           Trusted way of banking for 3,000+ SMEs and startups in Singapore
@@ -44,12 +39,12 @@ function Sidebar() {
                 className={({ isActive }) =>
                   `flex items-center gap-4 py-6 px-4 ${isActive
                     ? ' text-primary font-bold text-lg' 
-                    : 'text-gray-300 text-lg'
+                    : 'text-gray-300 text-lg font-bold'
                   }`
                 }
               >
                 <NavIcon icon={item.icon} />
-                <span className="font-medium">{item.label}</span>
+                <span className="font-bold text-md">{item.label}</span>
               </NavLink>
             </li>
           ))}

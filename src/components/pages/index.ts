@@ -1,4 +1,3 @@
-export { default as HomePage } from './HomePage';
 export { default as CardsPage } from './CardsPage';
 export { default as PaymentsPage } from './PaymentsPage';
 export { default as CreditPage } from './CreditPage';

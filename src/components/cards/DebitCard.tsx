@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { Card } from '@/types';
-import visaLogo from '@assets/Images/Visa Logo.svg?url';
-import aspireLogo from '@assets/Images/Aspire-Logo-1.svg?url';
-import eyeIcon from '@assets/Images/remove_red_eye-24px.svg?url';
+// Images loaded directly
 
 interface DebitCardProps {
   card: Card;
@@ -36,7 +34,7 @@ function DebitCard({ card }: DebitCardProps) {
         onClick={() => setShowCardNumber(!showCardNumber)}
         className="absolute -top-4 md:-top-12 right-0 md:right-0 flex items-center gap-2 bg-white md:bg-transparent text-primary md:text-primary text-xs md:text-base font-semibold hover:bg-gray-50 md:hover:bg-white/10 transition-all z-20 px-2 py-2 md:px-5 md:py-3 rounded-t-lg"
       >
-        <img src={eyeIcon} alt="Show" className="w-5 h-5 md:w-6 md:h-6" />
+        <img src="/src/assets/Images/remove_red_eye-24px.svg" alt="Show" className="w-5 h-5 md:w-6 md:h-6" />
         <span>{showCardNumber ? 'Hide' : 'Show'} card number</span>
       </button>
 
@@ -56,8 +54,8 @@ function DebitCard({ card }: DebitCardProps) {
 
         {/* Aspire Logo - Top Right */}
         <div className="flex justify-end">
-          <img src={aspireLogo} alt="Aspire" className="h-6 md:h-8" />
-        </div>
+        <img src="/src/assets/Images/Aspire-Logo-1.svg" alt="Aspire" className="h-6 md:h-8" />
+      </div>
 
         {/* Card Content - Middle Section */}
         <div className="flex-1 flex flex-col justify-center md-mt-0 mt-6">
@@ -75,14 +73,14 @@ function DebitCard({ card }: DebitCardProps) {
           {/* 👉 Moved here (Expiry + CVV) */}
           <div className="flex gap-6 md:gap-8 text-sm md:text-lg md:text-lg font-bold mt-4">
             <span>Thru: {card.expiryDate}</span>
-            <span>CVV: {showCardNumber ? card.cvv : '***'}</span>
+            <span>CVV: {showCardNumber ? card.cvv : '★★★'}</span>
           </div>
 
         </div>
 
         {/* Bottom Section - Only VISA logo now */}
         <div className="flex justify-end">
-          <img src={visaLogo} alt="VISA" className="h-7 md:h-9" />
+          <img src="/src/assets/Images/Visa Logo.svg" alt="VISA" className="h-7 md:h-9" />
         </div>
 
       </div>

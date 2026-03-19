@@ -6,7 +6,7 @@ import {
   ReactNode,
   Dispatch,
 } from 'react';
-import { AppState, AppAction, Card, Transaction, Balance, User } from '@/types';
+import { AppState, AppAction, Card } from '@/types';
 import { cardService, transactionService, userService } from '@services/api';
 
 // Initial state

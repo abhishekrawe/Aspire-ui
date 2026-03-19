@@ -1,12 +1,6 @@
 import { useState } from 'react';
 import { Transaction } from '@/types';
-import nextIcon from '@assets/Images/next.svg?url';
-import fileStorageIcon from '@assets/Images/file-storage.svg?url';
-import flightsIcon from '@assets/Images/flights.svg?url';
-import businessIcon from '@assets/Images/business-and-finance.svg?url';
-import megaphoneIcon from '@assets/Images/megaphone.svg?url';
-import transferIcon from '@assets/Images/Group 11889-1.svg?url';
-import downArrowIcon from '@assets/Images/down-arrow-1.svg?url';
+// Images loaded directly
 
 interface RecentTransactionsProps {
   transactions: Transaction[];
@@ -39,13 +33,13 @@ function RecentTransactions({ transactions }: RecentTransactionsProps) {
       >
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center">
-            <img src={transferIcon} alt="Recent" className="w-5 h-5 md:w-6 md:h-6" />
+            <img src="/src/assets/Images/Group 11889-1.svg" alt="Recent" className="w-5 h-5 md:w-6 md:h-6" />
           </div>
           <span className="text-navy font-medium text-base md:text-lg">Recent transactions</span>
         </div>
         <div className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center">
-          <img
-            src={downArrowIcon}
+        <img
+            src="/src/assets/Images/down-arrow-1.svg"
             alt="Toggle"
             className={`w-5 h-5 md:w-6 md:h-6 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
           />
@@ -84,13 +78,13 @@ function RecentTransactions({ transactions }: RecentTransactionsProps) {
 function TransactionItem({ transaction }: { transaction: Transaction }) {
   const getTransactionMeta = (category: string) => {
     const map: Record<string, { src: string; bg: string }> = {
-      Refund: { src: fileStorageIcon, bg: 'bg-blue-50' },
-      Travel: { src: flightsIcon, bg: 'bg-emerald-50' },
-      Shopping: { src: megaphoneIcon, bg: 'bg-pink-50' },
-      Charged: { src: businessIcon, bg: 'bg-blue-50' },
-      Charge: { src: businessIcon, bg: 'bg-blue-50' },
+      Refund: { src: '/src/assets/Images/file-storage.svg', bg: 'bg-blue-50' },
+      Travel: { src: '/src/assets/Images/flights.svg', bg: 'bg-emerald-50' },
+      Shopping: { src: '/src/assets/Images/megaphone.svg', bg: 'bg-pink-50' },
+      Charged: { src: '/src/assets/Images/business-and-finance.svg', bg: 'bg-blue-50' },
+      Charge: { src: '/src/assets/Images/business-and-finance.svg', bg: 'bg-blue-50' },
     };
-    return map[category] || { src: fileStorageIcon, bg: 'bg-blue-50' };
+    return map[category] || { src: '/src/assets/Images/file-storage.svg', bg: 'bg-blue-50' };
   };
 
   const formatDate = (dateString: string) => {
@@ -123,7 +117,7 @@ function TransactionItem({ transaction }: { transaction: Transaction }) {
         {transaction.description && (
           <div className="flex items-center gap-2 md:gap-3 mt-1.5 md:mt-2">
             <div className="w-6 h-6 md:w-8 md:h-7 rounded-full flex items-center justify-center flex-shrink-0" style={{ backgroundColor: '#325BAF' }}>
-              <img src={businessIcon} alt="desc" className="w-3 h-3 md:w-3.5 md:h-3.5" style={{ filter: 'brightness(0) invert(1)' }} />
+              <img src="/src/assets/Images/business-and-finance.svg" alt="desc" className="w-3 h-3 md:w-3.5 md:h-3.5" style={{ filter: 'brightness(0) invert(1)' }} />
             </div>
             <span className="text-xs md:text-sm font-medium text-navy truncate">{transaction.description}</span>
           </div>
@@ -135,7 +129,7 @@ function TransactionItem({ transaction }: { transaction: Transaction }) {
         <p className={`text-sm md:text-lg font-semibold ${isCredit ? 'text-primary' : 'text-gray-900'}`}>
           {isCredit ? '+' : '-'} S$ {transaction.amount.toFixed(0)}
         </p>
-        <img src={nextIcon} alt="Open" className="w-3 h-3 md:w-4 md:h-4 opacity-40" />
+        <img src="/src/assets/Images/next.svg" alt="Open" className="w-3 h-3 md:w-4 md:h-4 opacity-40" />
       </div>
     </div>
   );

@@ -1,8 +1,4 @@
-import freezeIcon from '@assets/Images/Freeze card.svg?url';
-import spendLimitIcon from '@assets/Images/Set spend limit.svg?url';
-import gpayIcon from '@assets/Images/GPay.svg?url';
-import replaceIcon from '@assets/Images/Replace card.svg?url';
-import cancelIcon from '@assets/Images/Deactivate card.svg?url';
+// Images loaded directly
 
 interface CardAction {
   id: string;
@@ -30,32 +26,32 @@ function CardActions({
     {
       id: 'freeze',
       label: isFrozen ? 'Unfreeze card' : 'Freeze card',
-      icon: freezeIcon,
+      icon: 'Freeze card.svg',
       onClick: onFreeze,
       disabled: false,
     },
     {
       id: 'spend-limit',
       label: 'Set spend limit',
-      icon: spendLimitIcon,
+      icon: 'Set spend limit.svg',
       disabled: true,
     },
     {
       id: 'gpay',
       label: 'Add to GPay',
-      icon: gpayIcon,
+      icon: 'GPay.svg',
       disabled: true,
     },
     {
       id: 'replace',
       label: 'Replace card',
-      icon: replaceIcon,
+      icon: 'Replace card.svg',
       disabled: true,
     },
     {
       id: 'cancel',
       label: 'Cancel card',
-      icon: cancelIcon,
+      icon: 'Deactivate card.svg',
       onClick: onCancel,
       disabled: false,
     },
@@ -74,8 +70,8 @@ function CardActions({
               action.disabled ? 'cursor-default opacity-100' : 'cursor-pointer'
             }`}
           >
-            <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center bg-white md:bg-transparent rounded-full md:rounded-none transition-colors">
-              <img src={action.icon} alt={action.label} className="w-6 h-6 md:w-10 md:h-10" />
+            <div className="w-12 h-12 md:w-12 md:h-12 flex items-center justify-center md:bg-transparent rounded-full md:rounded-none transition-colors">
+              <img src={`/src/assets/Images/${action.icon}`} alt={action.label} className="w-6 h-6 md:w-10 md:h-10" />
             </div>
             <span className="text-[10px] md:text-sm text-gray-700 text-center leading-tight">
               {action.label}

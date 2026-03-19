@@ -6,10 +6,9 @@ interface AddCardModalProps {
   isOpen: boolean;
   onClose: () => void;
   onAddCard: (card: Omit<Card, 'id'>) => Promise<void>;
-  cardHolderName: string;
 }
 
-function AddCardModal({ isOpen, onClose, onAddCard, cardHolderName }: AddCardModalProps) {
+function AddCardModal({ isOpen, onClose, onAddCard }: AddCardModalProps) {
   const [cardName, setCardName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');

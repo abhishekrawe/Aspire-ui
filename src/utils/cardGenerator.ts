@@ -29,7 +29,6 @@ export const generateCardNumber = (cardType: 'visa' | 'mastercard' = 'visa'): st
 export const generateExpirationDate = (): string => {
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth() + 1; // 0-indexed
   
   // Random month (1-12)
   const month = Math.floor(Math.random() * 12) + 1;
