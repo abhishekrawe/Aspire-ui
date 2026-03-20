@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Card } from '@/types';
-// Images loaded directly
+import eyeIcon from '../../assets/Images/remove_red_eye-24px.svg';
+import aspireLogo from '../../assets/Images/Aspire-Logo-1.svg';
+import visaLogo from '../../assets/Images/visa-logo.svg';
 
 interface DebitCardProps {
   card: Card;
@@ -34,7 +36,7 @@ function DebitCard({ card }: DebitCardProps) {
         onClick={() => setShowCardNumber(!showCardNumber)}
         className="absolute -top-4 md:-top-12 right-0 md:right-0 flex items-center gap-2 bg-white md:bg-transparent text-primary md:text-primary text-xs md:text-base font-semibold hover:bg-gray-50 md:hover:bg-white/10 transition-all z-20 px-2 py-2 md:px-5 md:py-3 rounded-t-lg"
       >
-        <img src="/src/assets/Images/remove_red_eye-24px.svg" alt="Show" className="w-5 h-5 md:w-6 md:h-6" />
+        <img src={eyeIcon} alt="Show" className="w-5 h-5 md:w-6 md:h-6" />
         <span>{showCardNumber ? 'Hide' : 'Show'} card number</span>
       </button>
 
@@ -54,7 +56,7 @@ function DebitCard({ card }: DebitCardProps) {
 
         {/* Aspire Logo - Top Right */}
         <div className="flex justify-end">
-        <img src="/src/assets/Images/Aspire-Logo-1.svg" alt="Aspire" className="h-6 md:h-8" />
+        <img src={aspireLogo} alt="Aspire" className="h-6 md:h-8" />
       </div>
 
         {/* Card Content - Middle Section */}
@@ -80,7 +82,7 @@ function DebitCard({ card }: DebitCardProps) {
 
         {/* Bottom Section - Only VISA logo now */}
         <div className="flex justify-end">
-          <img src="/src/assets/Images/Visa Logo.svg" alt="VISA" className="h-7 md:h-9" />
+          <img src={visaLogo} alt="VISA" className="h-7 md:h-9" />
         </div>
 
       </div>
@@ -89,4 +91,3 @@ function DebitCard({ card }: DebitCardProps) {
 }
 
 export default DebitCard;
-

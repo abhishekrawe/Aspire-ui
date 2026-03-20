@@ -1,11 +1,13 @@
 import { useState } from 'react';
 import { Card } from '@/types';
+import cardIcon from '../../assets/Images/Group 11889.svg';
+import arrowIcon from '../../assets/Images/down-arrow-1.svg';
 
 interface CardDetailsProps {
   card: Card;
 }
 
-function CardDetails({ }: CardDetailsProps) {
+function CardDetails({}: CardDetailsProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -16,13 +18,13 @@ function CardDetails({ }: CardDetailsProps) {
       >
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center">
-            <img src="/src/assets/Images/Group 11889.svg" alt="Card" className="w-5 h-5 md:w-6 md:h-6" />
+            <img src={cardIcon} alt="Card" className="w-5 h-5 md:w-6 md:h-6" />
           </div>
           <span className="text-navy font-medium text-base md:text-lg">Card details</span>
         </div>
         <div className="w-6 h-6 md:w-8 md:h-8 flex items-center justify-center">
           <img
-            src="/src/assets/Images/down-arrow-1.svg"
+            src={arrowIcon}
             alt="Toggle"
             className={`w-5 h-5 md:w-6 md:h-6 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
           />
@@ -42,6 +44,4 @@ function CardDetails({ }: CardDetailsProps) {
   );
 }
 
-
 export default CardDetails;
-

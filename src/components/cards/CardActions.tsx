@@ -1,4 +1,8 @@
-// Images loaded directly
+import freezeIcon from '../../assets/Images/freeze-card.svg';
+import setSpendLimitIcon from '../../assets/Images/set-spend-limit.svg';
+import gpayIcon from '../../assets/Images/GPay.svg';
+import replaceIcon from '../../assets/Images/replace-card.svg';
+import deactivateIcon from '../../assets/Images/deactivate-card.svg';
 
 interface CardAction {
   id: string;
@@ -26,14 +30,14 @@ function CardActions({
     {
       id: 'freeze',
       label: isFrozen ? 'Unfreeze card' : 'Freeze card',
-      icon: 'Freeze card.svg',
+      icon: 'freeze-card.svg',
       onClick: onFreeze,
       disabled: false,
     },
     {
       id: 'spend-limit',
       label: 'Set spend limit',
-      icon: 'Set spend limit.svg',
+      icon: 'set-spend-limit.svg',
       disabled: true,
     },
     {
@@ -45,17 +49,25 @@ function CardActions({
     {
       id: 'replace',
       label: 'Replace card',
-      icon: 'Replace card.svg',
+      icon: 'replace-card.svg',
       disabled: true,
     },
     {
       id: 'cancel',
       label: 'Cancel card',
-      icon: 'Deactivate card.svg',
+      icon: 'deactivate-card.svg',
       onClick: onCancel,
       disabled: false,
     },
   ];
+
+  const iconMap: Record<string, any> = {
+    freeze: freezeIcon,
+    'spend-limit': setSpendLimitIcon,
+    gpay: gpayIcon,
+    replace: replaceIcon,
+    cancel: deactivateIcon,
+  };
 
   return (
     <div className="bg-[#EDF3FF] rounded-2xl shadow-sm overflow-hidden p-4 md:px-6 md:py-4">
@@ -71,7 +83,7 @@ function CardActions({
             }`}
           >
             <div className="w-12 h-12 md:w-12 md:h-12 flex items-center justify-center md:bg-transparent rounded-full md:rounded-none transition-colors">
-              <img src={`/src/assets/Images/${action.icon}`} alt={action.label} className="w-6 h-6 md:w-10 md:h-10" />
+              <img src={iconMap[action.id]} alt={action.label} className="w-6 h-6 md:w-10 md:h-10" />
             </div>
             <span className="text-[10px] md:text-sm text-gray-700 text-center leading-tight">
               {action.label}
@@ -84,4 +96,3 @@ function CardActions({
 }
 
 export default CardActions;
-

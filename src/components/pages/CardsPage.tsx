@@ -2,7 +2,8 @@ import { useState, useCallback } from 'react';
 import { useBalance, useCards, useTransactions } from '@hooks/index';
 import { DebitCard, CardActions, CardDetails, RecentTransactions, AddCardModal, CancelCardModal } from '@components/cards';
 import { useApp } from '@store/AppContext';
-// Images loaded directly
+import logoIcon from '../../assets/Images/Logo-1.svg';
+import boxIcon from '../../assets/Images/box.svg';
 
 function CardsPage() {
   const {  } = useApp();
@@ -72,7 +73,7 @@ function CardsPage() {
       <div className="md:hidden fixed top-0 left-0 right-0 bg-[#0C365A] z-10 pb-8">
         {/* Logo - Top Right Corner */}
         <div className="absolute top-4 right-6 z-20">
-          <img src="/src/assets/Images/Logo-1.svg" alt="Aspire Logo" className="w-6 h-6" />
+          <img src={logoIcon} alt="Aspire Logo" className="w-6 h-6" />
         </div>
 
         {/* Available Balance + New Card Button */}
@@ -91,7 +92,7 @@ function CardsPage() {
               onClick={handleNewCard}
               className="bg-secondary hover:bg-secondary-600 text-white px-4 py-2.5 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
             >
-              <img src="/src/assets/Images/box.svg" alt="New card" className="w-5 h-5" />
+              <img src={boxIcon} alt="New card" className="w-5 h-5" />
               <span className="text-sm font-semibold">New card</span>
             </button>
           </div>
@@ -178,7 +179,7 @@ function CardsPage() {
           className="bg-secondary hover:bg-secondary-600 text-white px-4 py-2 rounded-xl flex items-center gap-3 font-semibold text-base transition-colors shadow-sm"
         >
           <span className="w-10 h-10 flex items-center justify-center">
-            <img src="/src/assets/Images/box.svg" alt="Box" className="w-6 h-6" />
+            <img src={boxIcon} alt="Box" className="w-6 h-6" />
           </span>
           <span>New card</span>
         </button>
