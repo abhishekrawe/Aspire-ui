@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import { useBalance, useCards, useTransactions } from '@hooks/index';
 import { DebitCard, CardActions, CardDetails, RecentTransactions, AddCardModal, CancelCardModal } from '@components/cards';
 import { useApp } from '@store/AppContext';
@@ -13,6 +13,26 @@ function CardsPage() {
   const [activeTab, setActiveTab] = useState<'debit' | 'company'>('debit');
   const [isAddCardModalOpen, setIsAddCardModalOpen] = useState(false);
   const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleCardScroll = useCallback((e: React.UIEvent<HTMLDivElement>) => {
+    const target = e.currentTarget;
+    if (!debitCards.length || debitCards.length <= 1) return;
+    
+    const scrollLeft = target.scrollLeft;
+    const clientWidth = target.clientWidth;
+    const approxCardWidth = clientWidth * 0.98; // matches w-[98%]
+    
+    const currentIndex = Math.round(scrollLeft / approxCardWidth);
+    
+    if (currentIndex >= 0 && currentIndex < debitCards.length) {
+      const newCardId = debitCards[currentIndex].id;
+      if (newCardId !== selectedCard?.id) {
+        selectCard(newCardId);
+      }
+    }
+  }, [debitCards, selectCard, selectedCard?.id]);
 
   const currentCard = selectedCard || debitCards[0];
 
@@ -125,7 +145,7 @@ function CardsPage() {
         {/* Card Carousel */}
         {activeTab === 'debit' && (
           <div className="relative">
-            <div className="overflow-x-auto scrollbar-hide -mx-6 px-6 md:px-0">
+            <div ref={scrollRef} onScroll={handleCardScroll} className="overflow-x-auto scrollbar-hide -mx-6 px-6 md:px-0">
               <div className="flex gap-4 p-4 md:pb-4">
                 {debitCards.map((card, index) => (
                   <div
